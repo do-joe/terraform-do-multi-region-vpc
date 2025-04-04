@@ -11,7 +11,6 @@ variable "primary_region" {
 variable "primary_ip_range" {
   description = "CIDR notation for subnet used for primary region VPC"
   type        = string
-  nullable    = true
   default     = null
 }
 
@@ -23,6 +22,5 @@ variable "secondary_region" {
 variable "secondary_ip_range" {
   description = "CIDR notation for subnet used for secondary region VPC"
   type        = string
-  nullable    = true
   default     = null
 }
