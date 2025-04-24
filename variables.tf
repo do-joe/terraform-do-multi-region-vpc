@@ -7,7 +7,13 @@ variable "vpcs" {
   type = list(object({
     region = string
     cidr   = string
+    name_prefix = string
   }))
   description = "List of VPC configurations"
+
+  validation {
+    condition     = length(var.vpcs) > 1
+    error_message = "Please Specify more than one VPC configuration."
+  }
 }
 

@@ -41,21 +41,21 @@ locals {
 resource "digitalocean_vpc" "vpc" {
   for_each = local.vpc_map
 
-  name        = "${each.key}-${each.value.region}"
+  name        = "${each.value.name_prefix}-${each.value.region}"
   region      = each.value.region
   ip_range    = each.value.cidr
-  description = "Auto-created VPC ${each.key} in ${each.value.region}"
+  #description = "Auto-created VPC ${each.key} in ${each.value.region}"
 }
 
 # Create VPC peering connections dynamically
 resource "digitalocean_vpc_peering" "peerings" {
   for_each = local.vpc_peering_map
 
-  name    = "peering-${each.value.vpc_1_key}-to-${each.value.vpc_2_key}"
+  name = "peering-${each.value.vpc_1_key}-to-${each.value.vpc_2_key}"
   vpc_ids = [
     digitalocean_vpc.vpc[each.value.vpc_1_key].id,
     digitalocean_vpc.vpc[each.value.vpc_2_key].id
   ]
-  
+
   depends_on = [digitalocean_vpc.vpc]
 }
