@@ -5,9 +5,8 @@ variable "name_prefix" {
 
 variable "vpcs" {
   type = list(object({
-    region = string
-    cidr   = string
-    name_prefix = string
+    region   = string
+    ip_range = string
   }))
   description = "List of VPC configurations"
 
