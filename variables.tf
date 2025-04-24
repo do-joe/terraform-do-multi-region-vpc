@@ -3,24 +3,16 @@ variable "name_prefix" {
   type        = string
 }
 
-variable "primary_region" {
-  description = "DO region slug for the primary region"
-  type        = string
+variable "vpcs" {
+  type = list(object({
+    region   = string
+    ip_range = string
+  }))
+  description = "List of VPC configurations"
+
+  validation {
+    condition     = length(var.vpcs) > 1
+    error_message = "Please Specify more than one VPC configuration."
+  }
 }
 
-variable "primary_ip_range" {
-  description = "CIDR notation for subnet used for primary region VPC"
-  type        = string
-  default     = null
-}
-
-variable "secondary_region" {
-  description = "DO region slug for the secondary region"
-  type        = string
-}
-
-variable "secondary_ip_range" {
-  description = "CIDR notation for subnet used for secondary region VPC"
-  type        = string
-  default     = null
-}
